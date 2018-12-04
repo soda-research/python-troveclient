@@ -139,6 +139,23 @@ class Clusters(base.ManagerWithFind):
         body = {"upgrade": {'datastore_version': datastore_version}}
         return self._action(cluster, body)
 
+    def resize_instances(self, cluster, flavor):
+        """Change cluster to a new flavor.
+
+            :param cluster:             The cluster to upgrade
+        """
+        body = {"resize-instances": {'flavor': flavor}}
+        return self._action(cluster, body)
+
+    def resize_volume(self, cluster, volume_size):
+        """Change cluster to a new flavor.
+
+            :param cluster:             The cluster to upgrade
+        """
+        body = {"resize-volume": {'volume': volume_size}}
+        return self._action(cluster, body)
+
+
 
 class ClusterStatus(object):
 

@@ -503,6 +503,37 @@ def do_cluster_upgrade(cs, args):
     cs.clusters.upgrade(cluster, args.datastore_version)
 
 
+
+@utils.arg('cluster', metavar='<cluster>',
+           help=_('ID or name of the cluster.'))
+@utils.arg('flavor',
+           metavar='<flavor>',
+           type=str,
+           help=_('New flavor of the instances.'))
+@utils.service_type('database')
+def do_cluster_resize_instances(cs, args):
+    """Resizes cluster with a new flavor."""
+    cluster = _find_cluster(cs, args.cluster)
+    flavor_id = _find_flavor(cs, args.flavor).id
+    cs.clusters.resize_instances(cluster, flavor_id)
+
+
+@utils.arg('cluster', metavar='<cluster>',
+           help=_('ID or name of the cluster.'))
+@utils.arg('volume',
+           metavar='<volume>',
+           type=str,
+           help=_('New volume size of the instances.'))
+@utils.service_type('database')
+def do_cluster_resize_volume(cs, args):
+    """Resizes cluster with a new  volume size."""
+    cluster = _find_cluster(cs, args.cluster)
+    volume = args.volume
+    cs.clusters.resize_volume(cluster, volume)
+
+
+
+
 @utils.arg('instance',
            metavar='<instance>',
            type=str,
